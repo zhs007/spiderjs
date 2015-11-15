@@ -1,0 +1,30 @@
+{
+  "name": "spiderjs",
+  "version": "1.0.1",
+  "latest": "1.0.1",
+  "description": "spiderjs",
+  "keywords": [
+    "spiderjs"
+  ],
+  "preferGlobal": true,
+  "dependencies": {
+    "jsdom": "*"
+  },
+  "repository": {
+    "url": "git://github.com/zhs007/spiderjs.git"
+  },
+  "author": {
+    "name": "zhs007",
+    "email": "sssxueren@gmail.com",
+    "url": "http://www.heysdk.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/zhs007/spiderjs",
+  "directories": {
+    "bin": "./bin"
+  },
+  "bugs": {
+    "url": "https://github.com/zhs007/spiderjs/issues"
+  },
+  "readmeFilename": "README.md"
+}

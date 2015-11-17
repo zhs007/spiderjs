@@ -25,6 +25,19 @@ var options = {
     }
 };
 
+function xpath(window, string, node) {
+    var arr = [];
+    var it = window.document.evaluate(string, node, null, window.XPathResult.ANY_TYPE, null);
+
+    var tn = it.iterateNext();
+    while (tn) {
+        arr.push(tn);
+        tn = it.iterateNext();
+    }
+
+    return arr;
+}
+
 var htmlbuf = '';
 
 var req = http.request(options, function(res) {
@@ -39,11 +52,30 @@ var req = http.request(options, function(res) {
         console.log('No more data in response.');
 
         jsdom.env(htmlbuf, [jquery, jsxpath], function (err, window) {
-            var res = window.document.evaluate('/html/body/div[@class="middle-box"]', window.document, null, window.XPathResult.ANY_TYPE, null);
-            //var obj = window.$("/html/body/div[@class=\"middle-box\"]");
-            //console.log("contents of a.the-link:", window.$('/html/body/div[@class="middle-box"]').text());
+            var arr = xpath(window, '/html/body/div[@class="middle-box"]/div[@class="w"]/dl[@class="list-item"]/dd', window.document);
+            for (var i = 0; i < arr.length; ++i) {
+                console.log(arr[i].textContent);
 
-            console.log('No more data in response.');
+                var magnet = xpath(window, './@magnet', arr[i]);
+                console.log(magnet[0].textContent);
+            }
+            //var xpe = new window.XPathEvaluator();
+            ////var it = xpe.evaluate('/html/body/div[@class="middle-box"]/div[@class="w"]/dl[@class="list-item"]/dd', window.document, null, window.XPathResult.ANY_TYPE, null);
+            //var it = window.document.evaluate('/html/body/div[@class="middle-box"]/div[@class="w"]/dl[@class="list-item"]/dd', window.document, null, window.XPathResult.ANY_TYPE, null);
+            //
+            //var tn = it.iterateNext();
+            //while (tn) {
+            //    console.log(tn.textContent);
+            //
+            //    var iit = window.document.evaluate('./@magnet', tn, null, window.XPathResult.ANY_TYPE, null);
+            //    console.log(iit.iterateNext().textContent);
+            //
+            //    tn = it.iterateNext();
+            //}
+            ////var obj = window.$("/html/body/div[@class=\"middle-box\"]");
+            ////console.log("contents of a.the-link:", window.$('/html/body/div[@class="middle-box"]').text());
+            //
+            //console.log('No more data in response.');
         });
         //var dom = libxmljs.parseHtmlString(htmlbuf, {encoding: 'utf-8', recover: true});
         //var mbox = dom.get('/html/body/div[@class="middle-box"]');
